@@ -18,6 +18,11 @@ const orderSchema = mongoose.Schema(
           required: true,
           ref: 'Product',
         },
+        variant: {
+          type: mongoose.Schema.Types.ObjectId,
+          requried: true,
+          ref: 'Variant',
+        },
       },
     ],
     shippingAddress: {
