@@ -3,9 +3,11 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import users from './data/users.js'
 import products from './data/products.js'
+import variants from './data/variants.js'
 import User from './models/userModel.js'
 import Product from './models/productModel.js'
 import Order from './models/orderModel.js'
+import Variant from './models/variantModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -17,6 +19,7 @@ const importData = async () => {
     await Order.deleteMany()
     await Product.deleteMany()
     await User.deleteMany()
+    await Variant.deleteMany()
 
     const createdUsers = await User.insertMany(users)
 
@@ -27,6 +30,8 @@ const importData = async () => {
     })
 
     await Product.insertMany(sampleProducts)
+
+    await Variant.insertMany(variants)
 
     console.log('Data Imported!'.green.inverse)
     process.exit()
@@ -41,6 +46,7 @@ const destroyData = async () => {
     await Order.deleteMany()
     await Product.deleteMany()
     await User.deleteMany()
+    await Variant.deleteMany()
 
     console.log('Data Destroyed!'.red.inverse)
     process.exit()
