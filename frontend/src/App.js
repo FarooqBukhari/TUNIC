@@ -18,6 +18,8 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import VariantListScreen from './screens/VariantListScreen'
+import VariantEditScreen from './screens/VariantEditScreen'
 
 const App = () => {
   return (
@@ -46,6 +48,9 @@ const App = () => {
             component={ProductListScreen}
             exact
           />
+          <Route path='/admin/variantlist' component={VariantListScreen} exact />
+          <Route path='/admin/variantlist/:pageNumber' component={VariantListScreen} exact />
+          <Route path='/admin/variant/:id/edit' component={VariantEditScreen} />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/admin/orderlist' component={OrderListScreen} />
           <Route path='/search/:keyword' component={HomeScreen} exact />

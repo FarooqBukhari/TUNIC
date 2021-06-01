@@ -1,22 +1,22 @@
 const variants = [
     {
-        variantName: 'Extra Small',
+        name: 'XS',
         type: 'Size',
     },
     {
-        variantName: 'Small',
+        name: 'S',
         type: 'Size',
     },
     {
-        variantName: 'Medium',
+        name: 'M',
         type: 'Size',
     },
     {
-        variantName: 'Large',
+        name: 'L',
         type: 'Size',
     },
     {
-        variantName: 'Extra Large',
+        name: 'XL',
         type: 'Size',
     },
 ]

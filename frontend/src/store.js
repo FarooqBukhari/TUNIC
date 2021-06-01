@@ -30,6 +30,14 @@ import {
   orderListReducer,
 } from './reducers/orderReducers'
 
+import {
+  variantCreateReducer,
+  variantDeleteReducer,
+  variantDetailsReducer,
+  variantListReducer,
+  variantUpdateReducer
+} from './reducers/variantReducers'
+
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -53,6 +61,11 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+  variantList: variantListReducer,
+  variantDetails: variantDetailsReducer,
+  variantDelete: variantDeleteReducer,
+  variantCreate: variantCreateReducer,
+  variantUpdate: variantUpdateReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

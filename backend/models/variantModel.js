@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const variantSchema = mongoose.Schema({
-    variantName: {
+    name: {
         type: String,
         required: true,
     },
