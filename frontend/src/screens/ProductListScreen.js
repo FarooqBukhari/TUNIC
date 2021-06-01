@@ -41,7 +41,7 @@ const ProductListScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET })
 
-    if (!userInfo || !userInfo.isAdmin || !userInfo.isSuperAdmin) {
+    if (!userInfo || (!userInfo.isAdmin && !userInfo.isSuperAdmin)) {
       history.push('/login')
     }
 
