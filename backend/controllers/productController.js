@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
+import Variant from '../models/variantModel.js'
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -30,9 +31,10 @@ const getProducts = asyncHandler(async (req, res) => {
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
+  const variants = await Variant.find({type: 'Size'})
 
   if (product) {
-    res.json(product)
+    res.json({product, variants})
   } else {
     res.status(404)
     throw new Error('Product not found')

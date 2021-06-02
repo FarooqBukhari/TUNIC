@@ -8,7 +8,10 @@ import { addToCart, removeFromCart } from '../actions/cartActions'
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
 
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1
+  const query_params = location.search ? location.search.split('&') : null
+
+  const qty = query_params ? Number(query_params[0].split('=')[1]) : 1
+  const size = query_params ? query_params[1].split('=')[1] : 'XS'
 
   const dispatch = useDispatch()
 
@@ -17,9 +20,9 @@ const CartScreen = ({ match, location, history }) => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty))
+      dispatch(addToCart(productId, qty, size))
     }
-  }, [dispatch, productId, qty])
+  }, [dispatch, productId, qty, size])
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
@@ -49,6 +52,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>Rs{item.price}</Col>
+                  <Col md={1}>{item.size}</Col>
                   <Col md={2}>
                     <Form.Control
                       as='select'

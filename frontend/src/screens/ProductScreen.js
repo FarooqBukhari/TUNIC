@@ -13,14 +13,10 @@ import {
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ history, match }) => {
-  const [qty, setQty] = useState(1)
-  const [rating, setRating] = useState(0)
-  const [comment, setComment] = useState('')
-
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const { loading, error, product, variants } = productDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -31,6 +27,11 @@ const ProductScreen = ({ history, match }) => {
     loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate
+
+  const [qty, setQty] = useState(1)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
+  const [size, setSize] = useState('')
 
   useEffect(() => {
     if (successProductReview) {
@@ -44,7 +45,7 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match, successProductReview])
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
+    history.push(`/cart/${match.params.id}?qty=${qty}&size=${size}`)
   }
 
   const submitHandler = (e) => {
@@ -133,17 +134,37 @@ const ProductScreen = ({ history, match }) => {
                       </Row>
                     </ListGroup.Item>
                   )}
-
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Size</Col>
+                      <Col>
+                        {variants.length > 0 && (
+                          <Form.Control
+                            as='select'
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}>
+                            {variants.map(
+                              (variant) => (
+                                <option key={variant._id} value={variant.name}>
+                                  {variant.name}
+                                </option>
+                              )
+                            )}
+                          </Form.Control>
+                        )}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
                   <ListGroup.Item>
                     <Button
                       onClick={addToCartHandler}
                       className='btn-block'
                       type='button'
-                      disabled={product.countInStock === 0}
+                      disabled={product.countInStock === 0 || variants.length <= 0}
                     >
                       Add To Cart
                     </Button>
-                    
+
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

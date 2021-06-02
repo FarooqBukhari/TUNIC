@@ -64,7 +64,7 @@ const PlaceOrderScreen = ({ history }) => {
     <>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
-        <Col md={8}>
+        <Col md={9}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
@@ -105,7 +105,7 @@ const PlaceOrderScreen = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x Rs{item.price} = Rs{item.qty * item.price}
+                          {item.qty} {item.size} x Rs{item.price} = Rs{item.qty * item.price}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -115,7 +115,7 @@ const PlaceOrderScreen = ({ history }) => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={4}>
+        <Col md={3}>
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
