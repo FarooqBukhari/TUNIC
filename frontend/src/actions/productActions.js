@@ -24,7 +24,7 @@ import {
 } from '../constants/productConstants'
 import { logout } from './userActions'
 
-export const listProducts = (keyword = '', category = 'All', price = 0, pageNumber = '') => async (
+export const listProducts = (keyword = 'All', category = 'All', price = 0, pageNumber = '') => async (
   dispatch
 ) => {
   try {
