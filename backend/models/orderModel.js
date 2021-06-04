@@ -36,9 +36,7 @@ const orderSchema = mongoose.Schema(
     },
     paymentResult: {
       id: { type: String },
-      status: { type: String },
-      update_time: { type: String },
-      email_address: { type: String },
+      receipt_url: { type: String },
     },
     taxPrice: {
       type: Number,
@@ -71,6 +69,11 @@ const orderSchema = mongoose.Schema(
     deliveredAt: {
       type: Date,
     },
+    markedAsDeliveredBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: 'User',
+    }
   },
   {
     timestamps: true,
