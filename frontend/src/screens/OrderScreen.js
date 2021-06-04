@@ -1,6 +1,6 @@
-import React, {  useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card, Button, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -69,10 +69,12 @@ const OrderScreen = ({ match, history }) => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <>
-      <h1>Order {order._id}</h1>
+    <Container>
       <Row>
-        <Col md={8}>
+        <Col xs={12}>
+          <h1>Order Details</h1>
+        </Col>
+        <Col xs={12} md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
@@ -144,7 +146,7 @@ const OrderScreen = ({ match, history }) => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={4}>
+        <Col xs={12} md={4}>
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
@@ -201,7 +203,7 @@ const OrderScreen = ({ match, history }) => {
           </Card>
         </Col>
       </Row>
-    </>
+    </ Container>
   )
 }
 
