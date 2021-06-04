@@ -53,10 +53,10 @@ const App = () => {
           <Route path='/admin/variant/:id/edit' component={VariantEditScreen} />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/admin/orderlist' component={OrderListScreen} />
-          <Route path='/search/:keyword' component={HomeScreen} exact />
+          <Route path='/search/:keyword/:category/:price' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
           <Route
-            path='/search/:keyword/page/:pageNumber'
+            path='/search/:keyword/:category/:price/page/:pageNumber'
             component={HomeScreen}
             exact
           />

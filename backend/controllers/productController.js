@@ -2,6 +2,15 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 import Variant from '../models/variantModel.js'
 
+
+// @desc    Fetch all categories
+// @route   GET /api/products/categories
+// @access  Public
+const getCategories = asyncHandler(async (req, res) => {
+  const categories = await Product.find({}).select('category').distinct('category');
+  res.json({ categories: ["All", ...categories] })
+})
+
 // @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
@@ -9,17 +18,33 @@ const getProducts = asyncHandler(async (req, res) => {
   const pageSize = 12
   const page = Number(req.query.pageNumber) || 1
 
-  const keyword = req.query.keyword
+  const keyword = req.query.keyword && req.query.keyword !== 'All'
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    }
+    : {}
+  const category = req.query.category !== 'All'
+    ? {
+      category: {
+        $regex: req.query.category,
+        $options: 'i',
+      },
+    }
     : {}
 
-  const count = await Product.countDocuments({ ...keyword })
-  const products = await Product.find({ ...keyword })
+  const price = req.query.price > 0
+    ? {
+      price: {
+        $lte: req.query.price,
+      },
+    }
+    : {}
+
+  const count = await Product.countDocuments({ ...keyword, ...category, ...price })
+  const products = await Product.find({ ...keyword, ...category, ...price })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
 
@@ -31,10 +56,10 @@ const getProducts = asyncHandler(async (req, res) => {
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
-  const variants = await Variant.find({type: 'Size'})
+  const variants = await Variant.find({ type: 'Size' })
 
   if (product) {
-    res.json({product, variants})
+    res.json({ product, variants })
   } else {
     res.status(404)
     throw new Error('Product not found')
@@ -167,4 +192,5 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
+  getCategories
 }

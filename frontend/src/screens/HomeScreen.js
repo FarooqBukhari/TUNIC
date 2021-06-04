@@ -12,6 +12,8 @@ import { listProducts } from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
+  const category = match.params.category
+  const price = match.params.price
 
   const pageNumber = match.params.pageNumber || 1
 
@@ -21,8 +23,8 @@ const HomeScreen = ({ match }) => {
   const { loading, error, products, page, pages } = productList
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber))
-  }, [dispatch, keyword, pageNumber])
+    dispatch(listProducts(keyword, category, price, pageNumber))
+  }, [dispatch, keyword, category, price, pageNumber])
 
   return (
     <>
