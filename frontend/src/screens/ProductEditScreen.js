@@ -20,11 +20,12 @@ const ProductEditScreen = ({ match, history }) => {
   const [countInStock, setCountInStock] = useState(0)
   const [description, setDescription] = useState('')
   const [uploading, setUploading] = useState(false)
+  const [sizeVariants, setSizeVariants] = useState([])
 
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const { loading, error, product, variants } = productDetails
 
   const productUpdate = useSelector((state) => state.productUpdate)
   const {
@@ -48,6 +49,7 @@ const ProductEditScreen = ({ match, history }) => {
         setCategory(product.category)
         setCountInStock(product.countInStock)
         setDescription(product.description)
+        setSizeVariants(product.variants)
       }
     }
   }, [dispatch, history, productId, product, successUpdate])
@@ -87,8 +89,21 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        sizeVariants
       })
     )
+  }
+
+  const handleMultiSelect = (event) => {
+    
+    const selected=[];
+    let selectedOption=(event.target.selectedOptions);
+ 
+    for (let i = 0; i < selectedOption.length; i++){
+        selected.push(selectedOption.item(i).value)
+    }
+    
+    setSizeVariants(selected);
   }
 
   return (
@@ -181,6 +196,18 @@ const ProductEditScreen = ({ match, history }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
+            </Form.Group>
+            <Form.Group controlId='variants'>
+              <Form.Label>Size Variants</Form.Label>
+              <Form.Control as="select" multiple value={sizeVariants} onChange={handleMultiSelect}>
+                {variants.map(
+                  (variant) => (
+                    <option key={variant._id} value={variant.name}>
+                      {variant.name}
+                    </option>
+                  )
+                )}
+              </Form.Control>
             </Form.Group>
 
             <Button type='submit' variant='primary'>

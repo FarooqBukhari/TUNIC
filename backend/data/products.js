@@ -13,6 +13,7 @@ const products = [
     countInStock: 6,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Brown colored cotton Full sleeves casual shirt',
@@ -25,6 +26,7 @@ const products = [
     countInStock: 4,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Red colored cotton Full sleeves casual shirt',
@@ -37,6 +39,7 @@ const products = [
     countInStock: 3,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Bella Ciao themed Tshirt',
@@ -49,6 +52,7 @@ const products = [
     countInStock: 10,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Black, Half sleeve Tshirt',
@@ -61,6 +65,7 @@ const products = [
     countInStock: 8,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Blue Karma, Half sleeve TShirt',
@@ -73,6 +78,7 @@ const products = [
     countInStock: 10,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   
   {
@@ -86,6 +92,7 @@ const products = [
     countInStock: 6,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Black zip polo',
@@ -98,6 +105,7 @@ const products = [
     countInStock: 2,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'white polo',
@@ -110,6 +118,7 @@ const products = [
     countInStock: 4,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'Black Half Sleeve Casual Shirt ',
@@ -122,6 +131,7 @@ const products = [
     countInStock: 3,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'White Half Sleeve Casual Shirt ',
@@ -134,6 +144,7 @@ const products = [
     countInStock: 3,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
   {
     name: 'White Half Sleeve Casual Shirt ',
@@ -146,6 +157,7 @@ const products = [
     countInStock: 3,
     rating: 0,
     numReviews: 0,
+    variants: [{name: 'S'},{name: 'M'},{name: 'L'},{name: 'XL'}]
   },
 
 

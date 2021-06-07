@@ -16,7 +16,7 @@ const ProductScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product, variants } = productDetails
+  const { loading, error, product } = productDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -42,7 +42,12 @@ const ProductScreen = ({ history, match }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview, product._id])
+  }, [dispatch, match, successProductReview])
+
+  useEffect(() => {
+    if (product.variants.length > 0)
+      setSize(product.variants[0].name)
+  }, [product])
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}&size=${size}`)
@@ -138,12 +143,12 @@ const ProductScreen = ({ history, match }) => {
                     <Row>
                       <Col>Size</Col>
                       <Col>
-                        {variants.length > 0 && (
+                        {product.variants.length > 0 && (
                           <Form.Control
                             as='select'
                             value={size}
                             onChange={(e) => setSize(e.target.value)}>
-                            {variants.map(
+                            {product.variants.map(
                               (variant) => (
                                 <option key={variant._id} value={variant.name}>
                                   {variant.name}
@@ -160,7 +165,7 @@ const ProductScreen = ({ history, match }) => {
                       onClick={addToCartHandler}
                       className='btn-block'
                       type='button'
-                      disabled={product.countInStock === 0 || variants.length <= 0}
+                      disabled={product.countInStock === 0 || product.variants.length <= 0}
                     >
                       Add To Cart
                     </Button>

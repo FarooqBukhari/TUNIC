@@ -136,7 +136,7 @@ const OrderScreen = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x Rs{item.price} = Rs{Math.round(item.qty * item.price)}
+                          {item.qty} {item.size} x Rs{item.price} = Rs{Math.round(item.qty * item.price)}
                         </Col>
                       </Row>
                     </ListGroup.Item>

@@ -65,6 +65,12 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    variants: [{
+      name: {
+        type: String,
+        required: true,
+      }
+    }],
   },
   {
     timestamps: true,

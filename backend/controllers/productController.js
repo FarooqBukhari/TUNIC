@@ -96,6 +96,11 @@ const createProduct = asyncHandler(async (req, res) => {
     numReviews: 0,
     description: 'Sample description',
   })
+  const variants = await Variant.find({ type: 'Size' })
+  variants.map((variant) => {
+    product.variants.push({ name: variant.name })
+  })
+
 
   const createdProduct = await product.save()
   res.status(201).json(createdProduct)
@@ -113,8 +118,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     brand,
     category,
     countInStock,
+    sizeVariants
   } = req.body
-
   const product = await Product.findById(req.params.id)
 
   if (product) {
@@ -125,7 +130,11 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.brand = brand
     product.category = category
     product.countInStock = countInStock
-
+    let variants = []
+    sizeVariants.map((variant) => {
+      variants.push({ name: variant })
+    })
+    product.variants = variants
     const updatedProduct = await product.save()
     res.json(updatedProduct)
   } else {
