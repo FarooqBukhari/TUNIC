@@ -51,7 +51,12 @@ export const productDetailsReducer = (
     case PRODUCT_DETAILS_REQUEST:
       return { ...state, loading: true }
     case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: action.payload.product, variants: action.payload.variants }
+      let options = []
+      action.payload.variants.map(
+        (variant) => {
+          return options.push(variant.name)
+        })
+      return { loading: false, product: action.payload.product, variants: options }
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload }
     default:

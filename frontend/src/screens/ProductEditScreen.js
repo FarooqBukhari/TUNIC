@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import { Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,9 +40,9 @@ const ProductEditScreen = ({ match, history }) => {
       dispatch({ type: PRODUCT_UPDATE_RESET })
       history.push('/admin/productlist')
     } else {
-      if (!product.name || product._id !== productId) {
+      if (!product || !product.name || product._id !== productId) {
         dispatch(listProductDetails(productId))
-      } else {
+      } else if (product) {
         setName(product.name)
         setPrice(product.price)
         setImage(product.image)
@@ -49,7 +50,11 @@ const ProductEditScreen = ({ match, history }) => {
         setCategory(product.category)
         setCountInStock(product.countInStock)
         setDescription(product.description)
-        setSizeVariants(product.variants)
+        const options = []
+        for (let i = 0; i < product.variants.length; i++) {
+          options.push(product.variants[i].name)
+        }
+        setSizeVariants(options)
       }
     }
   }, [dispatch, history, productId, product, successUpdate])
@@ -94,16 +99,8 @@ const ProductEditScreen = ({ match, history }) => {
     )
   }
 
-  const handleMultiSelect = (event) => {
-    
-    const selected=[];
-    let selectedOption=(event.target.selectedOptions);
- 
-    for (let i = 0; i < selectedOption.length; i++){
-        selected.push(selectedOption.item(i).value)
-    }
-    
-    setSizeVariants(selected);
+  const handleMultiSelect = (selectedOption) => {
+    setSizeVariants(selectedOption);
   }
 
   return (
@@ -178,6 +175,16 @@ const ProductEditScreen = ({ match, history }) => {
               ></Form.Control>
             </Form.Group>
 
+            <Form.Group controlId='variants'>
+            <Form.Label>Variants</Form.Label>
+              <DropdownMultiselect
+                options={variants}
+                name="variants"
+                handleOnChange={handleMultiSelect}
+                selected={sizeVariants}
+              />
+            </Form.Group>
+
             <Form.Group controlId='category'>
               <Form.Label>Category</Form.Label>
               <Form.Control
@@ -196,18 +203,6 @@ const ProductEditScreen = ({ match, history }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
-            </Form.Group>
-            <Form.Group controlId='variants'>
-              <Form.Label>Size Variants</Form.Label>
-              <Form.Control as="select" multiple value={sizeVariants} onChange={handleMultiSelect}>
-                {variants.map(
-                  (variant) => (
-                    <option key={variant._id} value={variant.name}>
-                      {variant.name}
-                    </option>
-                  )
-                )}
-              </Form.Control>
             </Form.Group>
 
             <Button type='submit' variant='primary'>

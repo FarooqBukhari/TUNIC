@@ -38,14 +38,14 @@ const ProductScreen = ({ history, match }) => {
       setRating(0)
       setComment('')
     }
-    if (!product._id || product._id !== match.params.id) {
+    if (!product || !product._id || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
   }, [dispatch, match, successProductReview])
 
   useEffect(() => {
-    if (product.variants.length > 0)
+    if (product && product.variants.length > 0)
       setSize(product.variants[0].name)
   }, [product])
 
@@ -72,7 +72,7 @@ const ProductScreen = ({ history, match }) => {
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
-      ) : (
+      ) : product ? (
         <>
           <Meta title={product.name} />
           <Row>
@@ -243,7 +243,7 @@ const ProductScreen = ({ history, match }) => {
             </Col>
           </Row>
         </>
-      )}
+      ) : <Loader />}
     </>
   )
 }
