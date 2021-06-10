@@ -37,6 +37,12 @@ const Header = () => {
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
+                  {userInfo.isSuperAdmin || userInfo.isAdmin ? <LinkContainer to='/admin/chat'>
+                    <NavDropdown.Item>Inquiries</NavDropdown.Item>
+                  </LinkContainer> : <LinkContainer to='/chat'>
+                    <NavDropdown.Item>Chat With Support</NavDropdown.Item>
+                  </LinkContainer>}
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
@@ -60,7 +66,7 @@ const Header = () => {
                     <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/variantlist'>
-                  <NavDropdown.Item>Variants</NavDropdown.Item>
+                    <NavDropdown.Item>Variants</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}

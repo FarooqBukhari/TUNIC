@@ -20,6 +20,8 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import VariantListScreen from './screens/VariantListScreen'
 import VariantEditScreen from './screens/VariantEditScreen'
+import ChatScreen from './screens/ChatScreen'
+import InquiriesScreen from './screens/InquiriesScreen'
 
 const App = () => {
   return (
@@ -55,6 +57,9 @@ const App = () => {
           <Route path='/admin/orderlist' component={OrderListScreen} />
           <Route path='/search/:keyword/:category/:price' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
+          <Route path='/chat' component={ChatScreen} exact />
+          <Route path='/chat/:userId' component={ChatScreen} exact />
+          <Route path='/admin/chat' component={InquiriesScreen} exact />
           <Route
             path='/search/:keyword/:category/:price/page/:pageNumber'
             component={HomeScreen}
