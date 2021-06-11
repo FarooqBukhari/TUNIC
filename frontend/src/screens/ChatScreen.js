@@ -53,13 +53,14 @@ const ChatScreen = ({ history, match }) => {
         event.preventDefault();
 
         // Send the new message to the server.
-        socket.emit('message', {
+        let msg = {
             name: userInfo.name,
             content: content,
             userId: userId
-        });
+        }
+        socket.emit('message', msg);
 
-        setChat([...chat]);
+        setChat([...chat, msg]);
         setContent('')
         scrollToBottom()
     }
