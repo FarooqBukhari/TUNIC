@@ -9,6 +9,7 @@ import Product from './models/productModel.js'
 import Order from './models/orderModel.js'
 import Variant from './models/variantModel.js'
 import connectDB from './config/db.js'
+import Message from './models/messageModel.js'
 
 dotenv.config()
 connectDB()
@@ -20,6 +21,7 @@ const importData = async () => {
     await Product.deleteMany()
     await User.deleteMany()
     await Variant.deleteMany()
+    await Message.deleteMany()
 
     const createdUsers = await User.insertMany(users)
 
@@ -47,6 +49,7 @@ const destroyData = async () => {
     await Product.deleteMany()
     await User.deleteMany()
     await Variant.deleteMany()
+    await Message.deleteMany()
 
     console.log('Data Destroyed!'.red.inverse)
     process.exit()

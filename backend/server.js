@@ -31,7 +31,7 @@ server.listen(
 )
 const socketIO = new Server(server, {
   cors: {
-    origins: ['http://localhost:3000']
+    origins: ['http://localhost:3000', 'https://tunic.herokuapp.com/']
   }
 })
 
