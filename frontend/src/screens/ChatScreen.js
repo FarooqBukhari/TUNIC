@@ -18,26 +18,28 @@ const ChatScreen = ({ history, match }) => {
     const socket = io.connect(config[process.env.NODE_ENV].endpoint);
     const userId = userInfo.isAdmin || userInfo.isSuperAdmin ? match.params.userId : userInfo._id;
 
-    socket.on('connection', () => {
-        console.log(`I'm connected with the back-end`);
-    });
-    socket.emit('userId', {
-        userId: userId
-    });
-    // Load the last 10 messages in the window.
-    socket.on('init', (msg) => {
-        let msgReversed = msg.reverse();
-        setChat([...msgReversed]);
-        scrollToBottom()
-    });
     useEffect(() => {
-
         // Update the chat if a new message is broadcasted.
         socket.on('push', (msg) => {
-            setChat([...chat]);
+            setChat([...chat, msg]);
             scrollToBottom();
         });
     })
+
+    useEffect(() => {
+        socket.on('connection', () => {
+            console.log(`I'm connected with the back-end`);
+        });
+        // Load the last 10 messages in the window.
+        socket.on('init', (msg) => {
+            let msgReversed = msg.reverse();
+            setChat([...msgReversed]);
+            scrollToBottom()
+        });
+        socket.emit('userId', {
+            userId: userId
+        });
+    }, [userId])
 
     // Save the message the user is typing in the input field.
     const handleContent = (event) => {
