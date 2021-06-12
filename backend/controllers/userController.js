@@ -17,6 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       isSuperAdmin: user.isSuperAdmin,
+      isHelpDeskAdmin: user.isHelpDeskAdmin,
       token: generateToken(user._id),
     })
   } else {
@@ -51,6 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       isSuperAdmin: user.isSuperAdmin,
+      isHelpDeskAdmin: user.isHelpDeskAdmin,
       token: generateToken(user._id),
     })
   } else {
@@ -110,7 +112,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @route   GET /api/users
 // @access  Private/SuperAdmin
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({_id: { $ne: req.user._id }})
+  const users = await User.find({ _id: { $ne: req.user._id } })
   res.json(users)
 })
 
@@ -168,7 +170,7 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 })
 
-const addAdminUser = asyncHandler(async(req, res) => {
+const addAdminUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body
 
   const userExists = await User.findOne({ email })
@@ -186,7 +188,7 @@ const addAdminUser = asyncHandler(async(req, res) => {
   })
 
   if (user) {
-    const users = await User.find({_id: { $ne: req.user._id }})
+    const users = await User.find({ _id: { $ne: req.user._id } })
     res.json(users)
   } else {
     res.status(400)

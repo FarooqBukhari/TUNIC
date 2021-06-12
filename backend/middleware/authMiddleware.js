@@ -39,6 +39,15 @@ const superAdmin = (req, res, next) => {
   }
 }
 
+const helpDeskAdmin = (req, res, next) => {
+  if (req.user && (req.user.isHelpDeskAdmin || req.user.isSuperAdmin)) {
+    next()
+  } else {
+    res.status(401)
+    throw new Error('Not authorized as an helpDesk admin')
+  }
+}
+
 const admin = (req, res, next) => {
   if (req.user && (req.user.isAdmin || req.user.isSuperAdmin)) {
     next()
@@ -48,4 +57,4 @@ const admin = (req, res, next) => {
   }
 }
 
-export { protect, admin, superAdmin }
+export { protect, admin, helpDeskAdmin, superAdmin }

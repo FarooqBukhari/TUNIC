@@ -23,6 +23,12 @@ const users = [
     email: 'umair_ahmad1997@gmail.com',
     password: bcrypt.hashSync('123456', 10),
   },
+  {
+    name: 'Help Desk Admin',
+    email: 'helpdesk@tunic.com',
+    password: bcrypt.hashSync('123456', 10),
+    isHelpDeskAdmin: true,
+  }
 
 
 

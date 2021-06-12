@@ -37,9 +37,9 @@ const Header = () => {
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  {userInfo.isSuperAdmin || userInfo.isAdmin ? <LinkContainer to='/admin/chat'>
+                  {userInfo.isSuperAdmin || userInfo.isHelpDeskAdmin ? <LinkContainer to='/admin/chat'>
                     <NavDropdown.Item>Inquiries</NavDropdown.Item>
-                  </LinkContainer> : <LinkContainer to='/chat'>
+                  </LinkContainer> : userInfo.isAdmin ? null : <LinkContainer to='/chat'>
                     <NavDropdown.Item>Chat With Support</NavDropdown.Item>
                   </LinkContainer>}
 

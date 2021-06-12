@@ -25,7 +25,7 @@ const InquiriesScreen = ({ history }) => {
 
     useEffect(() => {
         setLoading(true)
-        if (userInfo && (userInfo.isAdmin || userInfo.isSuperAdmin)) {
+        if (userInfo && (userInfo.isHelpDeskAdmin || userInfo.isSuperAdmin)) {
             fetchInquires()
             setLoading(false)
         } else {

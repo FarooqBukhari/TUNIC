@@ -72,7 +72,7 @@ socketIO.on('connection', (socket) => {
 
   socket.on('userId', (userId) => {
     // Get the last 10 messages from the database.
-    Message.find({chatWith: userId.userId}).sort({ createdAt: -1 }).limit(20).exec((err, messages) => {
+    Message.find({ chatWith: userId.userId }).sort({ createdAt: -1 }).limit(20).exec((err, messages) => {
       if (err) return console.error(err);
 
       // Send the last messages to the user.

@@ -16,21 +16,19 @@ const ChatScreen = ({ history, match }) => {
     const [content, setContent] = useState('')
     const [chat, setChat] = useState([])
     const socket = io.connect(config[process.env.NODE_ENV].endpoint);
-    const userId = userInfo.isAdmin || userInfo.isSuperAdmin ? match.params.userId : userInfo._id;
+    const userId = userInfo.isHelpDeskAdmin || userInfo.isSuperAdmin ? match.params.userId : userInfo._id;
 
-    useEffect(() => {
-        // Update the chat if a new message is broadcasted.
-        socket.on('push', (msg) => {
-            setChat([...chat, msg]);
-            scrollToBottom();
-        });
-    })
+    // Update the chat if a new message is broadcasted.
+    socket.on('push', (msg) => {
+        setChat([...chat, msg]);
+        scrollToBottom();
+    });
 
     useEffect(() => {
         socket.on('connection', () => {
             console.log(`I'm connected with the back-end`);
         });
-        // Load the last 10 messages in the window.
+        // Load the last 20 messages in the window.
         socket.on('init', (msg) => {
             let msgReversed = msg.reverse();
             setChat([...msgReversed]);
