@@ -15,15 +15,14 @@ const ChatScreen = ({ history, match }) => {
 
     const [content, setContent] = useState('')
     const [chat, setChat] = useState([])
-    const socket = io.connect(config[process.env.NODE_ENV].endpoint);
-    const userId = userInfo.isHelpDeskAdmin || userInfo.isSuperAdmin ? match.params.userId : userInfo._id;
+    const [socket] = useState(io.connect(config[process.env.NODE_ENV].endpoint));
+    const [userId] = useState(userInfo.isHelpDeskAdmin || userInfo.isSuperAdmin ? match.params.userId : userInfo._id);
 
     // Update the chat if a new message is broadcasted.
     socket.on('push', (msg) => {
         setChat([...chat, msg]);
         scrollToBottom();
     });
-
     useEffect(() => {
         socket.on('connection', () => {
             console.log(`I'm connected with the back-end`);
@@ -38,6 +37,7 @@ const ChatScreen = ({ history, match }) => {
             userId: userId
         });
     }, [userId])
+
 
     // Save the message the user is typing in the input field.
     const handleContent = (event) => {
