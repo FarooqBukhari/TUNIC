@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -45,6 +45,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function BottomBar(props) {
     const classes = useStyles();
+    const [content, setContent] = useState('');
+
+    const submitHandler = (event) => {
+        // Prevent the form to reload the current page.
+        event.preventDefault();
+        setContent('');
+        props.handleSubmit(content)
+    }
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
@@ -65,13 +73,17 @@ export default function BottomBar(props) {
                     />
                 </div>
                 <div className={classes.inputContainer}>
-                    <form onSubmit={props.handleSubmit}>
+                    <form onSubmit={submitHandler}>
                         <div className={classes.icon}>
                             <ChatIcon />
                         </div>
                         <InputBase
-                            onChange={props.handleContent}
-                            value={props.content}
+                            onChange={(event) => {
+                                setContent(
+                                    event.target.value,
+                                );
+                            }}
+                            value={content}
                             placeholder="Type your message..."
                             classes={{
                                 root: classes.inputRoot,

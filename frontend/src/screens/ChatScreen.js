@@ -13,7 +13,6 @@ const ChatScreen = ({ history, match }) => {
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
 
-    const [content, setContent] = useState('')
     const [chat, setChat] = useState([])
     const [socket] = useState(io.connect(config[process.env.NODE_ENV].endpoint));
     const [userId] = useState(userInfo.isHelpDeskAdmin || userInfo.isSuperAdmin ? match.params.userId : userInfo._id);
@@ -38,18 +37,7 @@ const ChatScreen = ({ history, match }) => {
         });
     }, [userId])
 
-
-    // Save the message the user is typing in the input field.
-    const handleContent = (event) => {
-        setContent(
-            event.target.value,
-        );
-    }
-
-    const handleSubmit = (event) => {
-        // Prevent the form to reload the current page.
-        event.preventDefault();
-
+    const handleSubmit = (content) => {
         // Send the new message to the server.
         let msg = {
             name: userInfo.name,
@@ -59,7 +47,6 @@ const ChatScreen = ({ history, match }) => {
         socket.emit('message', msg);
 
         setChat([...chat, msg]);
-        setContent('')
         scrollToBottom()
     }
 
@@ -87,8 +74,6 @@ const ChatScreen = ({ history, match }) => {
                 })}
             </Paper>
             <BottomBar
-                content={content}
-                handleContent={handleContent}
                 handleSubmit={handleSubmit}
                 name={userInfo.name}
             />
