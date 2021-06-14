@@ -14,6 +14,7 @@ const UserEditScreen = ({ match, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isHelpDeskAdmin, setIsHelpDeskAdmin] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -38,13 +39,14 @@ const UserEditScreen = ({ match, history }) => {
         setName(user.name)
         setEmail(user.email)
         setIsAdmin(user.isAdmin)
+        setIsHelpDeskAdmin(user.isHelpDeskAdmin)
       }
     }
   }, [dispatch, history, userId, user, successUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(updateUser({ _id: userId, name, email, isAdmin }))
+    dispatch(updateUser({ _id: userId, name, email, isAdmin, isHelpDeskAdmin }))
   }
 
   return (
@@ -88,6 +90,14 @@ const UserEditScreen = ({ match, history }) => {
                 label='Is Admin'
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
+              ></Form.Check>
+            </Form.Group>
+            <Form.Group controlId='ishelpdeskadmin'>
+              <Form.Check
+                type='checkbox'
+                label='Is Help Desk Admin'
+                checked={isHelpDeskAdmin}
+                onChange={(e) => setIsHelpDeskAdmin(e.target.checked)}
               ></Form.Check>
             </Form.Group>
 
